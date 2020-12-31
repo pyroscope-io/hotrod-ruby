@@ -5,12 +5,14 @@ This is a project to troubleshoot accessing Sinatra from Docker.
 ## Local
 
 ```bash
-ruby app.rb
+ruby services/frontend/server.rb
+ruby services/customer/server.rb
+ruby services/driver/server.rb
+ruby services/route/server.rb
 ```
 
 ## Docker
 
 ```bash
-docker-compose build
-docker-compose run --rm app ruby app.rb
+docker-compose up
 ```
