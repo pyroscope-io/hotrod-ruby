@@ -36,6 +36,8 @@ module Route
     res = Net::HTTP.get(uri)
     route = Route.create_route_obj(pickup, dropoff)
 
+    puts 'inside compute_route', route.to_json
+
     route.to_json
   end
 end
