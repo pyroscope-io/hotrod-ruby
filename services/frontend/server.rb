@@ -29,10 +29,12 @@ module Frontend
     end
 
     get '/dispatch' do
-        puts "hit /dispatch"
-        puts "customer: #{params[:customer]}"
-        puts 'best eta', Eta.get_best_eta(params[:customer])
-        Eta.get_best_eta(params[:customer])
+      content_type :json
+      
+      puts "hit /dispatch"
+      puts "customer: #{params[:customer]}"
+      puts 'best eta', Eta.get_best_eta(params[:customer])
+      Eta.get_best_eta(params[:customer])
     end
   end
 end
