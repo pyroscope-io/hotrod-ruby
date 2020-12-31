@@ -26,7 +26,7 @@ module Frontend
         end
       end
 
-      Frontend.new(best_driver, best_driver)
+      BestDriver.new(best_driver, best_eta).to_json
     end
   end
 end

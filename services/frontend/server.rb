@@ -31,8 +31,8 @@ module Frontend
     get '/dispatch' do
         puts "hit /dispatch"
         puts "customer: #{params[:customer]}"
-        puts Eta.get_best_eta(params[:customer])
-        { eta: "Frontend dispatch #{params[:customer]}" }.to_json
+        puts 'best eta', Eta.get_best_eta(params[:customer])
+        Eta.get_best_eta(params[:customer])
     end
   end
 end
