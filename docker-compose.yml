@@ -1,0 +1,13 @@
+version: '3.2'
+services:
+  app:
+    build: .
+    hostname: app
+    ports:
+      - '4567:4567'
+    environment:
+      - 'RUBYOPT=-W0 -KU -E utf-8:utf-8'
+    volumes:
+      - type: bind
+        source: .
+        target: /app
