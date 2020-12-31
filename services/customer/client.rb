@@ -2,6 +2,7 @@ require 'json'
 require 'net/http'
 require_relative '../config/settings'
 require 'uri'
+require 'json'
 
 module Customer
   class Customer
@@ -32,6 +33,7 @@ module Customer
     uri = URI("http://#{CUSTOMER_HOST}/customer?id=#{customer_id}")
     puts 'build uri', uri
     res = Net::HTTP.get(uri)
-    puts res.json, 'customer result'
+    puts JSON.parse(res), 'resultsssss'
+    JSON.parse(res)
   end
 end
