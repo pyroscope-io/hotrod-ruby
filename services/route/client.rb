@@ -10,6 +10,10 @@ module Route
       @dropoff = dropoff
       @eta = eta
     end
+
+    def self.json_create(h)
+      new(h['pickup'], h['dropoff'], h['eta'])
+    end
   end
 
   def self.compute_route(pickup, dropoff)

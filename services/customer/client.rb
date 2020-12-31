@@ -5,10 +5,24 @@ require 'uri'
 
 module Customer
   class Customer
+    attr_accessor :id, :name, :location
+
     def initialize(id, name, location)
       @id = id
       @name = name
       @location = location
+    end
+
+    def as_json(options={})
+      {
+        'id' => @id,
+        'name' => @name,
+        'location' => @location
+      }
+    end
+
+    def to_json(*options)
+        as_json(*options).to_json(*options)
     end
   end
 
@@ -18,8 +32,6 @@ module Customer
     uri = URI("http://#{CUSTOMER_HOST}/customer?id=#{customer_id}")
     puts 'build uri', uri
     res = Net::HTTP.get(uri)
-  
-    puts res, 'result'
-    res
+    puts res.json, 'customer result'
   end
 end

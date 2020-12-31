@@ -21,11 +21,9 @@ module Customer
       puts "hit /"
       puts "ID #{params[:id]}"
       puts Database.get_customer_by_id(params[:id])
-      { 
-        'id' => "123", 
-        'name' => "Rachel's Floral Designs", 
-        'location' => "115,277"
-      }.to_json
+      result = Database.get_customer_by_id(params[:id]).to_json
+      puts 'result from customer db', result
+      result
     end
   end
 end
