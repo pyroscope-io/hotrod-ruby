@@ -11,6 +11,17 @@ module Frontend
     set :static, true
     set :public_dir, File.expand_path(__dir__)
 
+    # get '/' do
+    #   puts "hit base route /"
+    #   puts Eta.get_best_eta(params[:customer])
+    #   { eta: "Frontend dispatch #{params[:customer]}" }.to_json
+    # end
+
+    get '/' do
+      puts "hit base route /"
+      erb :'/index'
+    end
+
     get '/dispatch' do
         puts "hit /dispatch"
         puts "customer: #{params[:customer]}"

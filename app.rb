@@ -14,8 +14,8 @@ module App
         # Site.run!
         # Customer::Site.run!
         # Driver::Site.run!
-        # Frontend::Site.run!
-        Route::Site.run!
+        Frontend::Site.run!
+        # Route::Site.run!
     end
   end
 end
