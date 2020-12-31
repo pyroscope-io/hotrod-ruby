@@ -1,13 +1,32 @@
 version: '3.2'
 services:
-  app:
-    build: .
-    hostname: app
-    ports:
-      - '4567:4567'
-    environment:
-      - 'RUBYOPT=-W0 -KU -E utf-8:utf-8'
+  # app:
+  #   build: .
+  #   hostname: app
+  #   ports:
+  #     - '4567:4567'
+  #   environment:
+  #     - 'RUBYOPT=-W0 -KU -E utf-8:utf-8'
+  #   volumes:
+  #     - type: bind
+  #       source: .
+  #       target: /app
+  frontend:
+    image: 'ruby:2.7'
     volumes:
-      - type: bind
-        source: .
-        target: /app
+      # - pyroscope_bin7:/tmp/pyroscope-bin
+      - '.:/app/src'
+    command:
+      - /bin/bash
+      - -c
+      - |
+        unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy
+        cd /app/src
+        gem install bundler
+        bundle update --bundler
+        bundle install
+        ruby services/frontend/server.rb
+    ports:
+      - "8080:80"
+    environment:
+      - USE_DOCKER_COMPOSE=1

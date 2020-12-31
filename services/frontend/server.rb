@@ -5,6 +5,12 @@ require_relative 'eta'
 require_relative '../config/settings'
 
 module Frontend
+  class App
+    def initialize(args)
+        Site.run!
+    end
+  end
+  
   class Site < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, FRONTEND_PORT
@@ -30,3 +36,5 @@ module Frontend
     end
   end
 end
+
+Frontend::App.new(ARGV)

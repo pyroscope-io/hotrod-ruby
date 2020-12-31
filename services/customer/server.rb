@@ -5,6 +5,12 @@ require_relative 'db'
 require_relative '../config/settings'
 
 module Customer
+  class App
+    def initialize(args)
+        Site.run!
+    end
+  end
+
   class Site < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, CUSTOMER_PORT
@@ -19,3 +25,5 @@ module Customer
     end
   end
 end
+
+Customer::App.new(ARGV)

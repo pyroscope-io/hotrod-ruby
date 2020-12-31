@@ -5,6 +5,12 @@ require_relative 'redis'
 require_relative '../config/settings'
 
 module Driver
+  class App
+    def initialize(args)
+        Site.run!
+    end
+  end
+
   class Site < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, DRIVER_PORT
@@ -19,3 +25,5 @@ module Driver
     end
   end
 end
+
+Driver::App.new(ARGV)

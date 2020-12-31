@@ -4,6 +4,12 @@ require_relative 'client'
 require_relative '../config/settings'
 
 module Route
+  class App
+    def initialize(args)
+        Site.run!
+    end
+  end
+
   class Site < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, ROUTE_PORT
@@ -19,3 +25,5 @@ module Route
     end
   end
 end
+
+Route::App.new(ARGV)
