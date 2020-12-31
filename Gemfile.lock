@@ -11,12 +11,15 @@ GEM
       rack-protection (= 2.0.3)
       tilt (~> 2.0)
     tilt (2.0.8)
+    uwsgi (2.0.19)
+      rack
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   sinatra (>= 2.0.3)
+  uwsgi
 
 BUNDLED WITH
    2.2.4
