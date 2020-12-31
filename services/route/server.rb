@@ -17,11 +17,12 @@ module Route
     set :public_dir, File.expand_path(__dir__)
 
     get '/route' do
-        puts "hit /"
-        puts "pickup: #{params[:pickup]}"
-        puts "dropoff: #{params[:dropoff]}"
-        # puts Route.compute_route(params[:pickup], params[:dropoff])
-        { route: "Route compute route #{params[:pickup]}, #{params[:dropoff]}" }.to_json
+      puts "hit /"
+      puts "pickup: #{params[:pickup]}"
+      puts "dropoff: #{params[:dropoff]}"
+      # puts Route.compute_route(params[:pickup], params[:dropoff])
+      route = Route.create_route_obj(params[:pickup], params[:dropoff])
+      route.to_json
     end
   end
 end
