@@ -2,6 +2,7 @@ require 'json'
 require 'net/http'
 require_relative '../config/settings'
 require 'uri'
+require 'json'
 
 module Driver
   class Driver
@@ -27,8 +28,8 @@ module Driver
   def self.get_drivers(pickup)
     uri = URI("http://#{DRIVER_HOST}/find_nearest?pickup=#{pickup}")
     res = Net::HTTP.get(uri)
-  
-    puts res
-    [ { 'driver_id' => "1234", 'location' => '1234'} ]
+    drivers = JSON.parse(res)
+    
+    drivers
   end
 end

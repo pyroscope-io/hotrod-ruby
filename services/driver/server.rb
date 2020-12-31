@@ -18,15 +18,17 @@ module Driver
     set :public_dir, File.expand_path(__dir__)
 
     get '/find_nearest' do
+      content_type :json
+
       puts "hit /"
       puts "pickup: #{params[:pickup]}"
       drivers = Redis.find_drivers_ids(params[:pickup])
-      drivers.map do |_id|
+      drivers.map! do |_id|
         driver = Redis.get_driver(_id)
         driver.to_json
       end
-      puts drivers, 'drivers'
-      drivers
+
+      drivers.to_json
     end
   end
 end
