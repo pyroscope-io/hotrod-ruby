@@ -18,10 +18,14 @@ module Customer
     set :public_dir, File.expand_path(__dir__)
 
     get '/customer' do
-        puts "hit /"
-        puts "ID #{params[:id]}"
-        puts Database.get_customer_by_id(params[:id])
-        { song: "Wake me Up" }.to_json
+      puts "hit /"
+      puts "ID #{params[:id]}"
+      puts Database.get_customer_by_id(params[:id])
+      { 
+        'id' => "123", 
+        'name' => "Rachel's Floral Designs", 
+        'location' => "115,277"
+      }.to_json
     end
   end
 end

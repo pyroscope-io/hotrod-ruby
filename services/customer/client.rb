@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 require_relative '../config/settings'
+require 'uri'
 
 module Customer
   class Customer
@@ -12,10 +13,13 @@ module Customer
   end
 
   def self.get_customer(customer_id)
-    uri = "http://#{CUSTOMER_HOST}/customer?id=#{customer_id}"
+    # uri = "http://#{CUSTOMER_HOST}/customer?id=#{customer_id}"
+    puts 'inside get customeer'
+    uri = URI("http://#{CUSTOMER_HOST}/customer?id=#{customer_id}")
+    puts 'build uri', uri
     res = Net::HTTP.get(uri)
   
-    puts res
+    puts res, 'result'
     res
   end
 end

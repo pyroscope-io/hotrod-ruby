@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 require_relative '../config/settings'
+require 'uri'
 
 module Route
   class Route
@@ -12,10 +13,10 @@ module Route
   end
 
   def self.compute_route(pickup, dropoff)
-    uri = "http://#{ROUTE_HOST}/route?pickup=#{pickup}&dropoff=#{dropoff}"
+    uri = URI("http://#{ROUTE_HOST}/route?pickup=#{pickup}&dropoff=#{dropoff}")
     res = Net::HTTP.get(uri)
   
     puts res
-    res
+    { 'pickup' => "1234", 'dropoff' => '1234', 'eta' => 100}
   end
 end
