@@ -1,11 +1,11 @@
-FROM ruby:2.2.6
+FROM 489437247049.dkr.ecr.us-east-1.amazonaws.com/pyroscope:dev as pyroscope
 
-EXPOSE 4567
+FROM ruby:2.7.1
 
-RUN mkdir /app
-WORKDIR /app
-COPY . /app
-
-RUN gem install bundler && bundle install
-
-CMD ["/bin/bash"]
+COPY . /app/src
+WORKDIR /app/src
+RUN gem install bundler
+RUN bundle update --bundler
+RUN bundle install
+COPY --from=pyroscope /usr/bin/pyroscope /usr/bin/pyroscope
+ENTRYPOINT ["/usr/bin/pyroscope", "exec", "ruby"]
