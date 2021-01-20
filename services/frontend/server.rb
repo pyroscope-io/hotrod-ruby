@@ -10,7 +10,7 @@ module Frontend
         Site.run!
     end
   end
-  
+
   class Site < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, FRONTEND_PORT
@@ -30,7 +30,7 @@ module Frontend
 
     get '/dispatch' do
       content_type :json
-      
+
       puts "hit /dispatch"
       puts "customer: #{params[:customer]}"
       puts 'best eta', Eta.get_best_eta(params[:customer])

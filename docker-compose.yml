@@ -1,78 +1,75 @@
 version: '3.2'
+
 services:
-  frontend:
-    image: 'ruby:2.7'
+  pyroscope:
+    image: 'pyroscope/pyroscope:dev'
     volumes:
-      # - pyroscope_bin7:/tmp/pyroscope-bin
-      - '.:/app/src'
+      - /Users/dmitry/Dev/ps/pyroscope/tmp/pyroscope-storage:/var/lib/pyroscope
     command:
-      - /bin/bash
-      - -c
-      - |
-        unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy
-        cd /app/src
-        gem install bundler
-        bundle update --bundler
-        bundle install
-        ruby services/frontend/server.rb
+      - server
+    ports:
+      - "9090:8080"
+  frontend:
+    image: 'pyroscope/hotrod-ruby:dev'
+    # entrypoint:
+    #   - /usr/local/bin/ruby
+    platform: linux/amd64
+    command:
+      - services/frontend/server.rb
     ports:
       - "8080:80"
+    cap_add:
+      - SYS_PTRACE
     environment:
       - USE_DOCKER_COMPOSE=1
+      - PYROSCOPE_SPY_NAME=rbspy
+      - PYROSCOPE_APPLICATION_NAME=hotrod.ruby.frontend
+      - PYROSCOPE_SERVER_ADDRESS=http://pyroscope:8080/
   customer:
-    image: 'ruby:2.7'
-    volumes:
-      # - pyroscope_bin7:/tmp/pyroscope-bin
-      - '.:/app/src'
+    image: 'pyroscope/hotrod-ruby:dev'
+    # entrypoint:
+    #   - /usr/local/bin/ruby
+    platform: linux/amd64
     command:
-      - /bin/bash
-      - -c
-      - |
-        unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy
-        cd /app/src
-        gem install bundler
-        bundle update --bundler
-        bundle install
-        ruby services/customer/server.rb
+      - services/customer/server.rb
     ports:
       - "8081:80"
+    cap_add:
+      - SYS_PTRACE
     environment:
       - USE_DOCKER_COMPOSE=1
+      - PYROSCOPE_SPY_NAME=rbspy
+      - PYROSCOPE_APPLICATION_NAME=hotrod.ruby.frontend
+      - PYROSCOPE_SERVER_ADDRESS=http://pyroscope:8080/
   driver:
-    image: 'ruby:2.7'
-    volumes:
-      # - pyroscope_bin7:/tmp/pyroscope-bin
-      - '.:/app/src'
+    image: 'pyroscope/hotrod-ruby:dev'
+    # entrypoint:
+    #   - /usr/local/bin/ruby
+    platform: linux/amd64
     command:
-      - /bin/bash
-      - -c
-      - |
-        unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy
-        cd /app/src
-        gem install bundler
-        bundle update --bundler
-        bundle install
-        ruby services/driver/server.rb
+      - services/driver/server.rb
     ports:
       - "8082:80"
+    cap_add:
+      - SYS_PTRACE
     environment:
       - USE_DOCKER_COMPOSE=1
+      - PYROSCOPE_SPY_NAME=rbspy
+      - PYROSCOPE_APPLICATION_NAME=hotrod.ruby.frontend
+      - PYROSCOPE_SERVER_ADDRESS=http://pyroscope:8080/
   route:
-    image: 'ruby:2.7'
-    volumes:
-      # - pyroscope_bin7:/tmp/pyroscope-bin
-      - '.:/app/src'
+    image: 'pyroscope/hotrod-ruby:dev'
+    # entrypoint:
+    #   - /usr/local/bin/ruby
+    platform: linux/amd64
     command:
-      - /bin/bash
-      - -c
-      - |
-        unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy
-        cd /app/src
-        gem install bundler
-        bundle update --bundler
-        bundle install
-        ruby services/route/server.rb
+      - services/route/server.rb
     ports:
       - "8083:80"
+    cap_add:
+      - SYS_PTRACE
     environment:
       - USE_DOCKER_COMPOSE=1
+      - PYROSCOPE_SPY_NAME=rbspy
+      - PYROSCOPE_APPLICATION_NAME=hotrod.ruby.frontend
+      - PYROSCOPE_SERVER_ADDRESS=http://pyroscope:8080/
